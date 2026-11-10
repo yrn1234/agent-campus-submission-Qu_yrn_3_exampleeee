@@ -1,0 +1,26 @@
+{
+  "status": "insufficient_information",
+  "answer": "未检索到火星办公室停车费的相关资料，无法确定收费金额。",
+  "citations": [],
+  "missing_information": "火星办公室停车收费标准或相关制度原文。",
+  "trace": [
+    {
+      "step": 1,
+      "action": "search",
+      "parameters": {
+        "query": "火星办公室 停车费 收费标准"
+      },
+      "result": {
+        "hits": []
+      },
+      "reason": "先检索停车费相关制度，再读取原文核实。"
+    },
+    {
+      "step": 2,
+      "action": "finish",
+      "parameters": {},
+      "result": "insufficient_information",
+      "reason": "检索结果为空，没有可读取并核实的文档。"
+    }
+  ]
+}

@@ -41,6 +41,10 @@ class AgentTests(unittest.TestCase):
         self.assertEqual(result["status"], "answered")
         self.assertEqual(result["citations"][0]["doc_id"], "D03")
 
+    def test_annual_leave_query_with_submit_excludes_expense_docs(self):
+        hits = self.tools.search("年假申请需要提前多久提交")
+        self.assertEqual([h["doc_id"] for h in hits], ["D03"])
+
     def test_context_followup(self):
         result = self.ask("还需要主管批准吗？", history=[{"role": "user", "content": "年假怎么申请？"}])
         self.assertEqual(result["status"], "answered")

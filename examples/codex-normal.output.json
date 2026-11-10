@@ -1,0 +1,52 @@
+{
+  "status": "answered",
+  "answer": "年假须至少提前 3 个工作日申请，并经直属主管批准。",
+  "citations": [
+    {
+      "doc_id": "D03",
+      "quote": "年假须至少提前 3 个工作日申请，并经直属主管批准。"
+    }
+  ],
+  "missing_information": [],
+  "trace": [
+    {
+      "step": 1,
+      "action": "search",
+      "parameters": {
+        "query": "年假申请需提前多久提交 企业年休假申请制度"
+      },
+      "result": {
+        "hits": [
+          {
+            "doc_id": "D03",
+            "title": "年假申请 FAQ",
+            "version_date": "2026-03-15"
+          }
+        ]
+      },
+      "reason": "先检索年假申请时限的相关制度。"
+    },
+    {
+      "step": 2,
+      "action": "read",
+      "parameters": {
+        "doc_id": "D03"
+      },
+      "result": {
+        "doc_id": "D03",
+        "title": "年假申请 FAQ",
+        "version_date": "2026-03-15",
+        "topic": "annual_leave",
+        "text": "年假须至少提前 3 个工作日申请，并经直属主管批准。"
+      },
+      "reason": "检索到年假申请 FAQ，需读取原文确认申请时限。"
+    },
+    {
+      "step": 3,
+      "action": "finish",
+      "parameters": {},
+      "result": "answered",
+      "reason": "已读取年假申请 FAQ 原文，申请时限明确。"
+    }
+  ]
+}

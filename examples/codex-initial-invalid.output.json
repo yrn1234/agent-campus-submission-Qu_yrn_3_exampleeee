@@ -1,0 +1,33 @@
+{
+  "status": "invalid_answer",
+  "answer": "模型输出未通过引用校验。",
+  "citations": [],
+  "missing_information": "需要可核实的原文引用",
+  "trace": [
+    {
+      "step": 1,
+      "action": "search",
+      "parameters": {"query": "年假申请需要提前多久提交 提前申请时间"},
+      "result": {"hits": [
+        {"doc_id": "D01", "title": "费用报销制度 A", "version_date": "2026-01-10"},
+        {"doc_id": "D02", "title": "费用报销制度 B", "version_date": "2026-02-01"},
+        {"doc_id": "D03", "title": "年假申请 FAQ", "version_date": "2026-03-15"}
+      ]},
+      "reason": "先检索年假申请时限的相关制度。"
+    },
+    {
+      "step": 2,
+      "action": "read",
+      "parameters": {"doc_id": "D03"},
+      "result": {"doc_id": "D03", "title": "年假申请 FAQ", "version_date": "2026-03-15", "topic": "annual_leave", "text": "年假须至少提前 3 个工作日申请，并经直属主管批准。"},
+      "reason": "检索结果中“年假申请 FAQ”与申请时限直接相关，需读取原文核实。"
+    },
+    {
+      "step": 3,
+      "action": "finish",
+      "parameters": {},
+      "result": "invalid_answer",
+      "reason": "已读取年假申请 FAQ 原文，申请时限明确。"
+    }
+  ]
+}

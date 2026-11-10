@@ -1,0 +1,43 @@
+{
+  "status": "tool_error",
+  "answer": "已检索到《年假申请 FAQ》，但读取原文失败，无法核实年假需要提前多久申请。",
+  "citations": [],
+  "missing_information": "D03 的原文及其中关于申请提前时间的规定。",
+  "trace": [
+    {
+      "step": 1,
+      "action": "search",
+      "parameters": {
+        "query": "年假需要提前多久申请"
+      },
+      "result": {
+        "hits": [
+          {
+            "doc_id": "D03",
+            "title": "年假申请 FAQ",
+            "version_date": "2026-03-15"
+          }
+        ]
+      },
+      "reason": "检索年假申请提前时间的制度规定"
+    },
+    {
+      "step": 2,
+      "action": "read",
+      "parameters": {
+        "doc_id": "D03"
+      },
+      "result": {
+        "error": "injected read failure"
+      },
+      "reason": "检索到年假申请 FAQ，读取原文核实申请提前时间。"
+    },
+    {
+      "step": 3,
+      "action": "finish",
+      "parameters": {},
+      "result": "tool_error",
+      "reason": "读取文档失败，无法依据原文回答。"
+    }
+  ]
+}

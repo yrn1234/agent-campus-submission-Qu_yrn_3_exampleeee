@@ -1,0 +1,76 @@
+{
+  "status": "needs_clarification",
+  "answer": "两份报销制度规定的提交期限冲突：D01 为费用发生后 30 天内，D02 为费用发生后 15 天内。请确认适用哪份制度。",
+  "citations": [
+    {
+      "doc_id": "D01",
+      "quote": "费用报销须在费用发生后 30 天内提交。"
+    },
+    {
+      "doc_id": "D02",
+      "quote": "费用报销须在费用发生后 15 天内提交。"
+    }
+  ],
+  "missing_information": "适用的报销制度（D01 或 D02）。",
+  "trace": [
+    {
+      "step": 1,
+      "action": "search",
+      "parameters": {
+        "query": "报销期限 报销申请提交时限"
+      },
+      "result": {
+        "hits": [
+          {
+            "doc_id": "D01",
+            "title": "费用报销制度 A",
+            "version_date": "2026-01-10"
+          },
+          {
+            "doc_id": "D02",
+            "title": "费用报销制度 B",
+            "version_date": "2026-02-01"
+          }
+        ]
+      },
+      "reason": "先检索报销制度，再读取原文确认期限。"
+    },
+    {
+      "step": 2,
+      "action": "read",
+      "parameters": {
+        "doc_id": "D01"
+      },
+      "result": {
+        "doc_id": "D01",
+        "title": "费用报销制度 A",
+        "version_date": "2026-01-10",
+        "topic": "expense",
+        "text": "费用报销须在费用发生后 30 天内提交。"
+      },
+      "reason": "检索到两份报销制度，先读取 D01 原文核实期限。"
+    },
+    {
+      "step": 3,
+      "action": "read",
+      "parameters": {
+        "doc_id": "D02"
+      },
+      "result": {
+        "doc_id": "D02",
+        "title": "费用报销制度 B",
+        "version_date": "2026-02-01",
+        "topic": "expense",
+        "text": "费用报销须在费用发生后 15 天内提交。"
+      },
+      "reason": "检索到另一份报销制度，需读取 D02 原文核对期限及是否存在冲突。"
+    },
+    {
+      "step": 4,
+      "action": "finish",
+      "parameters": {},
+      "result": "needs_clarification",
+      "reason": "已读取的两份制度期限不同，需确认适用制度后才能确定报销期限。"
+    }
+  ]
+}

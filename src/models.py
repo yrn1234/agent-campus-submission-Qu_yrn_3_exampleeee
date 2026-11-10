@@ -1,7 +1,10 @@
 """Live model adapter and a clearly limited offline decision policy."""
 import json
 import os
+import subprocess
+import tempfile
 import urllib.request
+from pathlib import Path
 
 
 SYSTEM = """你是企业知识问答 Agent。每步只输出一个 JSON 对象。
@@ -32,6 +35,28 @@ class LiveModel:
         with urllib.request.urlopen(request, timeout=30) as response:
             body = json.load(response)
         return json.loads(body["choices"][0]["message"]["content"])
+
+
+class CodexCLIModel:
+    """Use an authenticated Codex CLI call for each model decision, without an API key."""
+    def __init__(self, model=None, runner=None):
+        self.model = model or os.environ.get("CODEX_MODEL", "gpt-6-sol")
+        self.runner = runner or subprocess.run
+
+    def decide(self, messages):
+        prompt = (SYSTEM + "\n只依据下列当前可见交互选择一个动作；不得访问本地文件或调用其他工具。"
+                  "只输出 JSON 对象。\n交互：" + json.dumps(messages, ensure_ascii=False))
+        with tempfile.TemporaryDirectory() as directory:
+            output = Path(directory) / "decision.json"
+            args = ["codex", "exec", "--model", self.model, "--sandbox", "read-only",
+                    "--ephemeral", "--skip-git-repo-check", "-o", str(output), "-"]
+            completed = self.runner(args, input=prompt, stdout=subprocess.PIPE,
+                                    stderr=subprocess.PIPE, encoding="utf-8", timeout=180,
+                                    env=os.environ.copy(), cwd=directory)
+            if completed.returncode != 0 or not output.exists():
+                # Stderr may contain account or network details; do not put it in a trace.
+                raise RuntimeError("Codex CLI model call failed")
+            return json.loads(output.read_text(encoding="utf-8"))
 
 
 class MockModel:
