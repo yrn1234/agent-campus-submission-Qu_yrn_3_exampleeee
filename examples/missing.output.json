@@ -1,0 +1,37 @@
+{
+  "status": "insufficient_information",
+  "answer": "未检索到支持该问题的资料。",
+  "citations": [],
+  "missing_information": "需要相关制度或 FAQ",
+  "trace": [
+    {
+      "step": 1,
+      "action": "search",
+      "parameters": {
+        "query": "火星办公室的停车费是多少？"
+      },
+      "result": {
+        "hits": []
+      },
+      "reason": "先定位可能相关的制度"
+    },
+    {
+      "step": 2,
+      "action": "search",
+      "parameters": {
+        "query": "火星办公室的停车费是多少？ 制度 规定"
+      },
+      "result": {
+        "hits": []
+      },
+      "reason": "首次无结果，扩大查询一次"
+    },
+    {
+      "step": 3,
+      "action": "finish",
+      "parameters": {},
+      "result": "insufficient_information",
+      "reason": "补充检索仍无结果"
+    }
+  ]
+}

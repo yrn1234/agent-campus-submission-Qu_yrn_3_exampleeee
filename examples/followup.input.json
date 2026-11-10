@@ -1,0 +1,9 @@
+{
+  "argv": [
+    "还需要主管批准吗？",
+    "--mode",
+    "mock",
+    "--history-file",
+    "examples/history.json"
+  ]
+}
